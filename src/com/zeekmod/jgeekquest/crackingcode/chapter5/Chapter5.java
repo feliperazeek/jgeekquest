@@ -13,30 +13,6 @@ public class Chapter5 {
 	 *            the arguments
 	 */
 	public static void main(String[] args) {
-		// http://programmedlessons.org/AssemblyTutorial/Chapter-08/ass08_9.html
-		
-		// A=10, B=11, C=12, D=13, E=14, F=15, 
-		// 0F4A = 0 15 4 10 	= 0000 1111 0100 1010
-		// 420B = 4 2 0 11 		= 0100 0010 0000 1011
-		// 0101 0001 0101 0101 = 0x5155
-		
-		// 1101 0010
-		// 0110 1101 + 
-		// 0011 1111 (overflow)
-		
-		// http://programmedlessons.org/AssemblyTutorial/Chapter-08/ass08_11.html
-		// Let us say that you need to represent an equal number of positive and negative integers in eight bits. How many negative numbers can represented? How many positive numbers?
-		// Just for fun, can you think of a way to do this? Get out some scratch paper and scratch for a while with eight-bit patterns.
-		// 128 for positive - 128 for negative since the first bit is used for the sign = 0 for positive, 1 for negative
-
-
-
-		
-		
-		
-		// 0101 1111 0101 1111 = 5F5F
-		
-		
 		System.out.println(0x11001 << 2);
 		System.out.println(Integer.toBinaryString(0x11001 << 2));
 
