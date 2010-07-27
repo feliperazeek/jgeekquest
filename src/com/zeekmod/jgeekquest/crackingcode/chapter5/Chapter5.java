@@ -23,6 +23,13 @@ public class Chapter5 {
 		// 1101 0010
 		// 0110 1101 + 
 		// 0011 1111 (overflow)
+		
+		// http://programmedlessons.org/AssemblyTutorial/Chapter-08/ass08_11.html
+		// Let us say that you need to represent an equal number of positive and negative integers in eight bits. How many negative numbers can represented? How many positive numbers?
+		// Just for fun, can you think of a way to do this? Get out some scratch paper and scratch for a while with eight-bit patterns.
+		// 128 for positive - 128 for negative since the first bit is used for the sign = 0 for positive, 1 for negative
+
+
 
 		
 		
