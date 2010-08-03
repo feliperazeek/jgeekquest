@@ -8,9 +8,26 @@ public class Euler {
 	static long iii = new Integer(13195).longValue();
 	static long ii = 600851475143l;
 
-	public static void main(String[] args) {
+	public static void main2(String[] args) {
 		printPrimes(2000000);
 	}
+	
+	public static void main(String[] args) {
+        Integer bitmask = 0x000F;
+	  Integer val = 0x2222;
+	  System.out.println(bitmask + " = " + Integer.toBinaryString(bitmask) ); 
+	  System.out.println(val + " = " + Integer.toBinaryString(val) ); 
+	  Integer r = val & bitmask;
+	  System.out.println(r + " = " + Integer.toBinaryString(r));  // prints "2"
+	  
+	  System.out.println(2^10);
+	  // 02 = 0010
+	  // 10 = 1010
+	  // 0010 ^ 1010 = 1000 (8 in base 10)
+	  
+	  System.out.println(2^Integer.parseInt("10",2));
+   }
+
 
 	public static void foo() {
 		int y = 0;

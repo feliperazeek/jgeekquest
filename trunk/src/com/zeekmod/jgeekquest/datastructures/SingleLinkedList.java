@@ -2,7 +2,7 @@ package com.zeekmod.jgeekquest.datastructures;
 
 public class SingleLinkedList<I> {
 
-	Node head;
+	public Node head;
 
 	public SingleLinkedList() {
 		System.out.println("-----------------");
@@ -120,9 +120,13 @@ public class SingleLinkedList<I> {
 			this.next = next;
 		}
 
-		private I data;
+		public I data;
 
-		private Node next;
+		public Node next;
+		
+		public String toString() {
+			return data.toString();
+		}
 
 	}
 
