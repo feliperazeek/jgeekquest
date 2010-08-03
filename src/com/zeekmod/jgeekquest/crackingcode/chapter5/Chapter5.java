@@ -45,6 +45,14 @@ public class Chapter5 {
 		// 1001 & 1100 = 1000 (d)
 		// 1010 >> 1 = 101 (e)
 		// 0xFF - 1 = 0xFE (f)
+		
+		int x = 1;
+		int y = 0;
+		if ( (x & y) > 0 ) {
+			System.out.print("foo");
+		} else {
+			System.out.println("bar");
+		}
 
 	}
 

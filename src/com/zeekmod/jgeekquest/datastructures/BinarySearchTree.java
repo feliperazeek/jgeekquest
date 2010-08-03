@@ -2,6 +2,7 @@ package com.zeekmod.jgeekquest.datastructures;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class BinarySearchTree<I extends Comparable<I>> {
 
@@ -9,9 +10,9 @@ public class BinarySearchTree<I extends Comparable<I>> {
 
 	public boolean isBalanced() {
 		int max = this.getMaxDepth(this.root);
-		System.out.println("Max Depth: " + max);
+		// System.out.println("Max Depth: " + max);
 		int min = this.getMinDepth(this.root);
-		System.out.println("Min Depth: " + min);
+		// System.out.println("Min Depth: " + min);
 		if (max - min > 1) {
 			return false;
 		} else {
@@ -99,30 +100,29 @@ public class BinarySearchTree<I extends Comparable<I>> {
 			return this;
 		}
 		while (node != null) {
-			p("comparing " + data + " with " + node.data + " = "
-					+ data.compareTo(node.data));
+			// p("comparing " + data + " with " + node.data + " = " + data.compareTo(node.data));
 			if (data.compareTo(node.data) == 0) {
 				// I found my place in heaven - the search is over
-				p("got it: " + data);
+				// p("got it: " + data); 
 				node = null;
 			} else if (data.compareTo(node.data) < 0) {
 				// The poor ones go to the south left
 				if (node.left != null) {
-					p("left: " + node.left);
+					// p("left: " + node.left);
 					node = node.left;
 				} else {
 					node.left = new TreeNode(data);
-					p("set left: " + node.left);
+					// p("set left: " + node.left);
 					break;
 				}
 			} else if (data.compareTo(node.data) > 0) {
 				// The rich ones go to the north right
 				if (node.right != null) {
-					p("right: " + node.right);
+					// p("right: " + node.right);
 					node = node.right;
 				} else {
 					node.right = new TreeNode(data);
-					p("set right: " + node.right);
+					// p("set right: " + node.right);
 					break;
 				}
 			}
@@ -161,6 +161,36 @@ public class BinarySearchTree<I extends Comparable<I>> {
 			n = null;
 		}
 		return n;
+	}
+	
+	public int getCount() {
+		return this.getCount(null, 0);
+	}
+	
+	public int getCount(TreeNode n, int count) {
+		if ( n != null ) {
+			if ( n.left != null ) {
+				count = count + this.getCount(n.left, count);
+			}
+			count++;
+			if ( n.right != null ) {
+				count = count + this.getCount(n.right, count);
+			}
+		}
+		return count;
+	}
+
+	public I getRandomNode() {
+		Random r = new Random();
+		List<I> list = this.preOrder();
+		int random = r.nextInt(list.size());
+		return list.get(random);
+		
+	}
+
+	public TreeNode getRandomNode2() {
+		// return this.getRandomNode(this.root, this.getCount());
+		return null;
 	}
 
 	@Override
@@ -217,9 +247,14 @@ public class BinarySearchTree<I extends Comparable<I>> {
 		// p(t.add("A"));
 		// p(t.add("A").add("B"));
 
-		BinarySearchTree<Integer> t = new BinarySearchTree<Integer>().add(1)
-				.add(2).add(3).add(4).add(5).add(-1);
+		BinarySearchTree<Integer> t = new BinarySearchTree<Integer>().add(1).add(2).add(3).add(4).add(5).add(-1).add(10).add(99).add(99).add(-1);
 		p(t + " - balanced? " + t.isBalanced());
+		
+		BinarySearchTree<Integer> t2 = new BinarySearchTree<Integer>().add(2).add(3).add(-1);
+		p(t2 + " - balanced? " + t2.isBalanced());
+		
+		p("random node: " + t.getRandomNode());
+		
 		// p(t.add("A").add("B").add("A"));
 	}
 
