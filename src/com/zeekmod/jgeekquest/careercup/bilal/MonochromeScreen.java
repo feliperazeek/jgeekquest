@@ -1,6 +1,7 @@
 package com.zeekmod.jgeekquest.careercup.bilal;
 
 import java.util.Arrays;
+import java.util.BitSet;
 
 
 /***
@@ -24,62 +25,80 @@ public class MonochromeScreen {
 	private static final int BITS_IN_A_BYTE = 8; 
 	
 	public static void drawHorizontalLine(int screenWidth, byte[] data, ScreenPoint start, ScreenPoint stop) {
-		int rows = getRowsCount(screenWidth);
+		// Get Rows Count
+		int rows = getSizeInBytes(screenWidth);
+		
+		// Print
 		print("B E F O R E", data, screenWidth, rows);
 		
-		int startRange = (start.getX()/8);
-		if ( start.getX() % 8 != 0 ) {
-			startRange++;
-		}
-		startRange = startRange * rows;
-		startRange = startRange + (start.getY()/8);
-		if ( start.getY() % 8 != 0 ) {
-			startRange++;
-		}
+		// Bit Indexes
+		int endPaintBit = stop.getY() * stop.getX();
+		int startPaintBit = start.getY() * start.getY();
 		
-		int endRange = (stop.getX()/8);
-		if ( stop.getX() % 8 != 0 ) {
-			endRange++;
+		// Byte Indexes
+		int startRange = startPaintBit / 8;
+		if ( startPaintBit % 8 != 0 ) {
+			startRange++;
 		}
-		endRange = endRange * rows;
-		endRange = endRange + (stop.getY()/8);
-		if ( stop.getY() % 8 != 0 ) {
+		int endRange = endPaintBit / 8;
+		if ( endPaintBit % 8 != 0 ) {
 			endRange++;
 		}
 		
+		// Debug
 		System.out.println("");
 		System.out.println("");
-		System.out.println("Rows: " + rows);
-		System.out.println("Start Array Index: " + startRange + " - End Array Index: " + endRange);
-		System.out.println("Start Position: [" + start.getX() + "," + start.getY() + "] - End Position: [" + stop.getX() + "," + stop.getY() + "]");
+		System.out.println( "Line on Row " + start.getX() + ", Screen Size (bytes): " + screenWidth + "x" + screenWidth + ", Bit(s): " + startPaintBit + "-" + endPaintBit + " Byte(s): " + startRange + "-" + endRange );
+		System.out.println("Start @: [" + start.getX() + "," + start.getY() + "] - End @: [" + stop.getX() + "," + stop.getY() + "]");
 		
+		// Paint
 		byte setValue = (byte)1;
+		int currentStart = startPaintBit;
+		int currentEnd = endPaintBit;
+		
+		int mask = 0x000000FF;
 		for (int i = startRange; i <= endRange; i++) {
-			int index = i;
-			System.out.println("Paint " + index);
-			data[index-1] = setValue;
+			System.out.println( "Set Byte " + i );
+			Integer value = 0;
+			int j = 0;
+			if ( currentEnd > (currentStart+7) ) {
+				currentEnd = currentStart+7;
+			} else {
+				currentEnd = endPaintBit;
+			}
+			for (j = currentStart; j <= currentEnd; j++) {
+				System.out.println( "Set Bit " + j );
+				value = mask ^ (value  >> 1);
+			}
+			currentStart = currentStart + j;
+			data[i] = value.byteValue();
 		}
 		
-		System.out.println("");
-		System.out.println("");
+		/*
+			for (int j = startPaintBit; j <= endPaintBit; j++) {
+				System.out.println( "Set Bit " + j );
+				data[i-1] = setValue;
+			} */
 	
+		
+		// Print
+		System.out.println("");
+		System.out.println("");
 		print("A F T E R", data, screenWidth, rows);
 	}
 	
-	private static int getRowsCount(int screenWidth) {
+	private static int getSizeInBytes(int screenWidth) {
 		return (screenWidth) / 8;
 	}
 	
 	public static void print(String label, byte[] data, int screenWidth, int rows) {
 		System.out.println( label );
 		int i = 1;
-		int rowCount = 1;
 		for ( byte b: data ) {
-			System.out.print( "(" + rowCount + "/" + i + ") " + b + " ");
+			System.out.print( Integer.toBinaryString(new Integer(b)) + " ");
 			if (i == rows) {
 				System.out.print("\n");
 				i = 1;
-				rowCount++;
 			} else {
 				i++;
 			}
@@ -119,9 +138,9 @@ public class MonochromeScreen {
 	public static void main(String[] args) {
 		int screenWidth = 32;
 		byte[] data = MonochromeScreen.generateSampleData(screenWidth);
-		int x = 2;
-		ScreenPoint start = new ScreenPoint( x, 1 );
-		ScreenPoint stop = new ScreenPoint( x, 32 );
+		int row = 1;
+		ScreenPoint start = new ScreenPoint( row, 2 );
+		ScreenPoint stop = new ScreenPoint( row, 23 );
 		MonochromeScreen.drawHorizontalLine(screenWidth, data, start, stop);
 	}
 	
