@@ -32,46 +32,43 @@ public class MonochromeScreen {
 		print("B E F O R E", data, screenWidth, rows);
 		
 		// Bit Indexes
-		int endPaintBit = stop.getY() * stop.getX();
-		int startPaintBit = start.getY() * start.getY();
+		int endPaintBit = stop.getX() * stop.getY();
+		int startPaintBit = start.getX() * start.getY();
 		
 		// Byte Indexes
-		int startRange = startPaintBit / 8;
-		if ( startPaintBit % 8 != 0 ) {
-			startRange++;
-		}
-		int endRange = endPaintBit / 8;
-		if ( endPaintBit % 8 != 0 ) {
-			endRange++;
-		}
+		int startRange = startPaintBit / BITS_IN_A_BYTE;
+		int endRange = startRange + (endPaintBit / BITS_IN_A_BYTE);
+		
+		int currentStart = startPaintBit;
+		int currentEnd = endPaintBit;
 		
 		// Debug
 		System.out.println("");
 		System.out.println("");
 		System.out.println( "Line on Row " + start.getX() + ", Screen Size (bytes): " + screenWidth + "x" + screenWidth + ", Bit(s): " + startPaintBit + "-" + endPaintBit + " Byte(s): " + startRange + "-" + endRange );
-		System.out.println("Start @: [" + start.getX() + "," + start.getY() + "] - End @: [" + stop.getX() + "," + stop.getY() + "]");
+		System.out.println("Positions: [" + start.getX() + "," + start.getY() + "] - End @: [" + stop.getX() + "," + stop.getY() + "]");
 		
-		// Paint
-		byte setValue = (byte)1;
-		int currentStart = startPaintBit;
-		int currentEnd = endPaintBit;
-		
-		int mask = 0x000000FF;
 		for (int i = startRange; i <= endRange; i++) {
 			System.out.println( "Set Byte " + i );
+			
+			// int currentStart = startRange * BITS_IN_A_BYTE;
+			// int currentEnd = currentStart + BITS_IN_A_BYTE;
+			// if ( currentEnd > endRange ) {
+				// currentEnd = endRange;
+			// }
+			
 			Integer value = 0;
-			int j = 0;
-			if ( currentEnd > (currentStart+7) ) {
-				currentEnd = currentStart+7;
-			} else {
-				currentEnd = endPaintBit;
+			int c = 0;
+			System.out.println("S: " + currentStart + ", E: " + currentEnd);
+			for (currentStart = currentStart; currentStart < currentEnd; currentStart++) {
+				value = value | (1 << c);
+				System.out.println( "Set Bit " + currentStart );
+				c++;
+				if ( c >= BITS_IN_A_BYTE-1 ) {
+					break;
+				}
 			}
-			for (j = currentStart; j <= currentEnd; j++) {
-				System.out.println( "Set Bit " + j );
-				value = mask ^ (value  >> 1);
-			}
-			currentStart = currentStart + j;
-			data[i] = value.byteValue();
+			data[i] = value.byteValue(); 
 		}
 		
 		/*
@@ -87,15 +84,24 @@ public class MonochromeScreen {
 		print("A F T E R", data, screenWidth, rows);
 	}
 	
+	private static String printByte(byte b) {
+		String s = Integer.toBinaryString(new Integer(b)) ;
+		if ( s.length() < BITS_IN_A_BYTE ) {
+			for ( int i = 1; i < (BITS_IN_A_BYTE - s.length()); i++ ) {
+				s = "0" + s;
+			}
+		}
+		return s;
+	}
+	
 	private static int getSizeInBytes(int screenWidth) {
-		return (screenWidth) / 8;
+		return (screenWidth) / BITS_IN_A_BYTE;
 	}
 	
 	public static void print(String label, byte[] data, int screenWidth, int rows) {
-		System.out.println( label );
 		int i = 1;
 		for ( byte b: data ) {
-			System.out.print( Integer.toBinaryString(new Integer(b)) + " ");
+			System.out.print( printByte( b ) + " ");
 			if (i == rows) {
 				System.out.print("\n");
 				i = 1;
@@ -147,7 +153,7 @@ public class MonochromeScreen {
 	public static byte[] generateSampleData(int width) {
 		width = (width / BITS_IN_A_BYTE) * (width / BITS_IN_A_BYTE);
 		byte[] data = new byte[width];
-		byte clearByte = (byte)0;
+		byte clearByte = new Integer(0).byteValue();
 		Arrays.fill(data, clearByte);
 		System.out.println( "Total number of dot(s)/position(s) on the screen: " + data.length );
 		System.out.println("");
