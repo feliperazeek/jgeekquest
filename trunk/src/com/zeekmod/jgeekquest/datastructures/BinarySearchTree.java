@@ -134,6 +134,7 @@ public class BinarySearchTree<I extends Comparable<I>> {
 		return this.remove(data, this.root);
 	}
 
+
 	public TreeNode remove(I t, TreeNode n) {
 		if (t == null) {
 			throw new RuntimeException("Node not found with data: " + t);
@@ -207,6 +208,71 @@ public class BinarySearchTree<I extends Comparable<I>> {
 		return sb.toString();
 	}
 
+        public boolean hasSubTree(BinarySearchTree sub) {
+            // Log Debug
+            // System.out.println("");
+            // System.out.println("-- Subtree Check! --");
+
+            // Try to find head of subtree
+            TreeNode subHead = this.findNode(sub.root);
+            if ( subHead == null ) {
+                System.out.println("Tree head: " + sub.root.data + " NOT found!");
+                return false;
+            }
+
+            // Ok we found the head let's step on node and see if it matches 
+            return this.navigateAndCompare(subHead, sub.root);
+        }
+
+        private boolean navigateAndCompare(TreeNode n1, TreeNode n2) {
+            if ( n1 == null && n2 == null ) {
+                return true;
+            }
+            if ( n2 != null && n1 == null ) {
+                return false;
+            }
+            if ( n1 != null && n2 == null ) {
+                return false;
+            }
+            if ( n1.data.equals(n2.data) ) {
+                boolean left = this.navigateAndCompare(n1.left, n2.left);
+                boolean right = this.navigateAndCompare(n1.right, n2.right);
+                if ( left && right ) {
+                    return true;
+                }
+                return false;
+            } else {
+                System.out.println(n1.data + " does NOT match " + n2.data);
+                return false;
+            }
+        }
+
+        private void l(Object o) {
+            System.out.println(o);
+        }
+
+        public TreeNode findNode(TreeNode node) {
+            return this.findNode(this.root, node);
+        }
+
+        public TreeNode findNode(TreeNode n, TreeNode node) {
+            if ( node == null ) {
+                return null;
+            }
+            while ( n != null ) {
+                if ( n.data.equals(node.data) ) {
+                    return n;
+                }
+                if ( node.data.compareTo(n.data) < 0 ) {
+                    return this.findNode(n.left, node);
+                } else if ( node.data.compareTo(n.data) > 0 ) {
+                    return this.findNode(n.right, node);
+                }
+                throw new RuntimeException("It should never get here!");
+            }
+            return null;
+        }
+
 	public class TreeNode {
 
 		I data;
@@ -237,25 +303,90 @@ public class BinarySearchTree<I extends Comparable<I>> {
 
 	}
 
+        public void display() {
+            this.display(this.root, 0);
+        }
+
+        public void display(TreeNode node, int level) {
+            if ( node == null ) {
+                return;
+            }
+            System.out.print(node.data + " (" + level + ")");
+                level++;
+                System.out.println("");
+                if ( node.left != null ) {
+                    System.out.print("l: ");
+                    this.display(node.left, level);
+                }
+
+                if ( node.right != null ) {
+                    System.out.print("r: ");
+                    this.display(node.right, level);
+                }
+        }
+
 	public static void p(Object o) {
 		System.out.println("------------");
 		System.out.println(o);
 		System.out.println("------------");
 	}
 
+        public BinarySearchTree mirror() {
+            BinarySearchTree t = new BinarySearchTree();
+            TreeNode n = this.mirror(this.root);
+            t.root = n;
+            return t;
+        }
+
+        private TreeNode mirror(TreeNode n) {
+            if ( n != null ) {
+                TreeNode left = null;
+                TreeNode right = null;
+                if ( n.left != null ) {
+                    left = this.mirror(n.left);
+                }
+                if ( n.right != null ) {
+                    right = this.mirror(n.right);
+                }
+                TreeNode temp = n.left;
+                n.left = n.right;
+                n.right = temp;
+            }
+            return n;
+        }
+
 	public static void main(String[] args) {
 		// p(t.add("A"));
 		// p(t.add("A").add("B"));
 
-		BinarySearchTree<Integer> t = new BinarySearchTree<Integer>().add(1).add(2).add(3).add(4).add(5).add(-1).add(10).add(99).add(99).add(-1);
-		p(t + " - balanced? " + t.isBalanced());
+		// BinarySearchTree<Integer> t = new BinarySearchTree<Integer>().add(1).add(2).add(3).add(4).add(5).add(-1).add(10).add(99).add(-5);
+		// p(t + " - balanced? " + t.isBalanced());
+                // 1
+                // l: 2 r: 3
+                // l: -1 rl: 5 rr: 10
+                // ll: -5  rrr:99
 		
-		BinarySearchTree<Integer> t2 = new BinarySearchTree<Integer>().add(2).add(3).add(-1);
-		p(t2 + " - balanced? " + t2.isBalanced());
-		
-		p("random node: " + t.getRandomNode());
+		// BinarySearchTree<Integer> t2 = new BinarySearchTree<Integer>().add(-1);
+		// p(t2 + " - balanced? " + t2.isBalanced());
+
+                // p("Subtree: " + t.hasSubTree(new BinarySearchTree<Integer>().add(-1).add(-5)));
+                // p("Subtree: " + t.hasSubTree(new BinarySearchTree<Integer>().add(10).add(99)));
+                //p("Subtree: " + t.hasSubTree(new BinarySearchTree<Integer>().add(3).add(-1)));
+                // p("Subtree: " + t.hasSubTree(new BinarySearchTree<Integer>().add(999).add(-5)));
+
+		// p("random node: " + t.getRandomNode());
 		
 		// p(t.add("A").add("B").add("A"));
+
+                BinarySearchTree<Integer> t = new BinarySearchTree<Integer>().add(2).add(1).add(4).add(3).add(5);
+                t.display();
+
+                p("--------");
+
+                BinarySearchTree<Integer> m1 = t.mirror();
+                m1.display();
+
+                //p("--------");
 	}
 
 }
