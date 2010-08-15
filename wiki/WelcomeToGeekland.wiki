@@ -36,4 +36,8 @@ TopCoder.com - go read their tutorials
 
 = Interesting Links =
 
-http://www.slate.com/blogs/blogs/thewrongstuff/archive/2010/08/03/error-message-google-research-director-peter-norvig-on-being-wrong.aspx
+Peter Norvig - http://www.slate.com/blogs/blogs/thewrongstuff/archive/2010/08/03/error-message-google-research-director-peter-norvig-on-being-wrong.aspx
+
+Java IAQ - http://norvig.com/java-iaq.html
+
+Google CIO on Search - http://www.youtube.com/watch?v=syKY8CrHkck#t=22m03s
