@@ -3,9 +3,13 @@
 = Practice =
 
 TopCoder.com
+
 SPOJ
+
 Project Euler
+
 ProgrammingChallenges.com
+
 CareerCup.com
 
 
@@ -13,8 +17,11 @@ CareerCup.com
 = Books =
 
 The Algorithm Design Manual
+
 Programming Challenges
+
 Introduction to Algorithms
+
 Programming Pearls
 
 
@@ -22,6 +29,7 @@ Programming Pearls
 = Tips =
 
 Scribd.com - you will find papers, books, basically more information than you can process!
+
 TopCoder.com - go read their tutorials
 
 
