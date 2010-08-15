@@ -43,3 +43,9 @@ Peter Norvig - http://www.slate.com/blogs/blogs/thewrongstuff/archive/2010/08/03
 Java IAQ - http://norvig.com/java-iaq.html
 
 Google CIO on Search - http://www.youtube.com/watch?v=syKY8CrHkck#t=22m03s
+
+MapReduce Paper - http://www.scribd.com/MapReduce-Simplified-Data-Processing-on-Large-Clusters/d/4957907
+
+BigTable Paper - http://www.scribd.com/doc/4957897/Bigtable-A-Distributed-Storage-System-for-Structured-Data
+
+Google File System Paper - http://www.scribd.com/doc/20251/The-Google-File-System
