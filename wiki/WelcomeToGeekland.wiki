@@ -36,6 +36,8 @@ TopCoder.com - go read their tutorials
 
 = Interesting Links =
 
+MIT Introduction to Algorithms (Lectures 1-17) - http://www.youtube.com/watch?v=0VqawRl3Xzs&p=8B24C31197EC371C&playnext=1
+
 Peter Norvig - http://www.slate.com/blogs/blogs/thewrongstuff/archive/2010/08/03/error-message-google-research-director-peter-norvig-on-being-wrong.aspx
 
 Java IAQ - http://norvig.com/java-iaq.html
