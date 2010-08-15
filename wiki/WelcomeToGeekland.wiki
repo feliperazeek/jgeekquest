@@ -1,0 +1,31 @@
+#Welcome to Geekland!
+
+= Practice =
+
+TopCoder.com
+SPOJ
+Project Euler
+ProgrammingChallenges.com
+CareerCup.com
+
+
+
+= Books =
+
+The Algorithm Design Manual
+Programming Challenges
+Introduction to Algorithms
+Programming Pearls
+
+
+
+= Tips =
+
+Scribd.com - you will find papers, books, basically more information than you can process!
+TopCoder.com - go read their tutorials
+
+
+
+= Interesting Links =
+
+http://www.slate.com/blogs/blogs/thewrongstuff/archive/2010/08/03/error-message-google-research-director-peter-norvig-on-being-wrong.aspx
