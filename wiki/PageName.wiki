@@ -1,0 +1,19 @@
+
+Practise exercises at:
+
+-> TopCoder.com
+-> SPOJ
+-> Project Euler
+-> ProgrammingChallenges.com
+-> CareerCup.com
+
+Books:
+
+The Algorithm Design Manual
+Programming Challenges
+Introduction to Algorithms
+Programming Pearls
+
+
+Interesting Links:
+http://www.slate.com/blogs/blogs/thewrongstuff/archive/2010/08/03/error-message-google-research-director-peter-norvig-on-being-wrong.aspx
