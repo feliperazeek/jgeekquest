@@ -208,22 +208,6 @@ public class BinarySearchTree<I extends Comparable<I>> {
 		return sb.toString();
 	}
 
-        public boolean hasSubTree(BinarySearchTree sub) {
-            // Log Debug
-            // System.out.println("");
-            // System.out.println("-- Subtree Check! --");
-
-            // Try to find head of subtree
-            TreeNode subHead = this.findNode(sub.root);
-            if ( subHead == null ) {
-                System.out.println("Tree head: " + sub.root.data + " NOT found!");
-                return false;
-            }
-
-            // Ok we found the head let's step on node and see if it matches 
-            return this.navigateAndCompare(subHead, sub.root);
-        }
-
         private boolean navigateAndCompare(TreeNode n1, TreeNode n2) {
             if ( n1 == null && n2 == null ) {
                 return true;
@@ -331,12 +315,6 @@ public class BinarySearchTree<I extends Comparable<I>> {
 		System.out.println("------------");
 	}
 
-        public BinarySearchTree mirror() {
-            BinarySearchTree t = new BinarySearchTree();
-            TreeNode n = this.mirror(this.root);
-            t.root = n;
-            return t;
-        }
 
         private TreeNode mirror(TreeNode n) {
             if ( n != null ) {
@@ -383,8 +361,8 @@ public class BinarySearchTree<I extends Comparable<I>> {
 
                 p("--------");
 
-                BinarySearchTree<Integer> m1 = t.mirror();
-                m1.display();
+                // BinarySearchTree<Integer> m1 = t.mirror();
+               // m1.display();
 
                 //p("--------");
 	}
