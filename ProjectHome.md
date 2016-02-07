@@ -1,0 +1,1 @@
+In my quest to become a better computer scientist I have been implementing algorithms and solving problems from Project Ruler, TopCoder, SPOJ, Programming Challenges, etc. I will organize and commit what I have done so far. I will also keep committing new things to this project, please feel free to use it. I hope the journey will be as full-filling for you as it has been for me.
